@@ -58,12 +58,35 @@ cacheSolve <- function(x, ...) {
   #this is calculated when the value doesn't exist in the cache
   invMatrix
 }
+
+#some tests to validate the functions
+xx <- matrix(1:4,2,2)
+
+
+print(xx %*% zz)
+
+#function to test the above functions, and print the results
+# matrix x inverse_matrix = Identity matrix
+# results should be Identity Matrix (diagonal 1s and others 0)
+testCacheMatrix <- function(xx){
+  options(digits = 2)
+  y=makeCacheMatrix(xx)
+  z=cacheSolve(y)
+  #results should be Identity matrix (diagnol 1s, rest 0)
+  print(xx %*% z)
+}
+
 #clear variables to avoid any preexisting values
 rm(list = setdiff(ls(), lsf.str()))
 #some tests to validate the functions
-xx <- matrix(1:4,2,2)
-yy=makeCacheMatrix(xx)
-zz=cacheSolve(yy)
-#results should be Identity matrix (diagnol 1s, rest 0)
-print(xx %*% zz)
+xx <- matrix(c(1:4,2,2), nrow = 2, ncol = 2)
+testCacheMatrix(xx)
+xx <- matrix(c(1/2, -1/4, -1, 3/4), nrow = 2, ncol = 2)
+testCacheMatrix(xx)
+xx <- matrix(c(1,0,0,1), nrow = 2, ncol = 2)
+testCacheMatrix(xx)
+
+#end
+
+
 
